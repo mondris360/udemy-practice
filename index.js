@@ -17,12 +17,13 @@ const fs = require("fs");
 //import the data.js library we created inside the lib dir
 const dataOperation = require("./lib/data.js")
 
-dataOperation.create("users","records",{
+var data =  {
     "fullname":"Okundolor Mondris",
     "gender":"Male",
     "username":"justmondris",
     "password":"123234"
-}, function(err){
+}
+dataOperation.create("users", data.username, data, function(err){
   if(err){
     console.log(err)
   }
