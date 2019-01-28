@@ -42,7 +42,25 @@ lib.create =  function(dir, file, data, callback){
   });
 };
 
+// function to read a file
 
+lib.read =  function(dir,fileName, callback){
+  // form the file absolute pathName
+  fileAbsPath = path.join(lib.baseDir, dir, "fileName + .json");
+    //read the content of the fileName
+    fs.readFile(fileAbsPath, "utf-8",function(err, data){
+      if(err){
+        callback(err);
+      }
+      else if(!data){
+        callback("the file does not contain any data");
+      }
+      else{
+        callback("file content was read sucessfully", data);
+      }
+    });
+
+}
 
 
 

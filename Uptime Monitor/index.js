@@ -17,10 +17,11 @@ const fs = require("fs");
 //import the data.js library we created inside the lib dir
 const dataOperation = require("./lib/data.js")
 
+
 var data =  {
     "fullname":"Okundolor Mondris",
     "gender":"Male",
-    "username":"justmondris",
+    "username":"jude",
     "password":"123234"
 }
 dataOperation.create("users", data.username, data, function(err){
@@ -29,6 +30,19 @@ dataOperation.create("users", data.username, data, function(err){
   }
 
 });
+
+// call the data.js  library to create the file connect
+
+dataOperation.read("users","jude.json",function(err, data){
+  if(err){
+    console.log(err);
+  }
+  else{
+    console.log("file Content:", data);
+  }
+});
+
+
 
 
 // create the http server  and parse the request and response to the server
@@ -99,12 +113,12 @@ var unifiedServer  = function(request, response){
       //route the request to the handler specified in the router
       chosenHandler(data, function(statusCode, payload){
          //use the status code called back by the handler or default to 200
+        console.log("i am back to line 102");
         statusCode = typeof(statusCode) == "number" ? statusCode: 200;
+        console.log("this is the value i collected from where i jumped to in line 126 ", statusCode);
         // use the payload called back by the handler or default to an empty Object
-
         payload =  typeof(payload) == "object" ? payload : {};
-
-        // convert the payload to a string
+        //convert the payload to a string
         var payloadString =  JSON.stringify(payload);
         //tell the client the format of the request msg e.g json, html e.t.c
          response.setHeader("Content-Type", "application/json");
@@ -123,6 +137,8 @@ handlers = {};
 
 // ping hander
 handlers.ping = function(data, callback){
+  console.log("i jumped to line 127");
+  console.log("callback parameter has been assigned to", callback);
   callback(200);
 };
 
